@@ -1805,7 +1805,8 @@ $('#planReset').addEventListener('click',()=>{plan.classList.remove('picked');ar
     });
 
     /* ---- the place cards: one atlas, one mesh for all of them ---- */
-    const CW=204,CH=102,COLS=10,atlasC=document.createElement('canvas');atlasC.width=2048;atlasC.height=2048;
+    let COLS=10;while(COLS*Math.floor(2048/Math.floor(Math.floor(2048/COLS)/2))<cards.length+1)COLS++;   // fit every card (and the plain back) on the one 2048 atlas, however many guests
+    const CW=Math.floor(2048/COLS),CH=Math.floor(CW/2),atlasC=document.createElement('canvas');atlasC.width=2048;atlasC.height=2048;
     const atlas=new T.CanvasTexture(atlasC);atlas.encoding=T.sRGBEncoding;atlas.anisotropy=4;
     function drawCard(g,x,y,w,h,name,hi){
       g.save();g.translate(x,y);
